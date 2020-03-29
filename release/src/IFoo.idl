@@ -1,0 +1,53 @@
+import "oaidl.idl";
+import "ocidl.idl";
+
+typedef INT64(__stdcall *NotifyIdleStateHandler)(INT64 id);
+
+typedef struct RawVoiceProperty {
+  LPWSTR Language;
+  LPWSTR DisplayName;
+  double SpeakingRate;
+  double Volume;
+  double Pitch;
+} RawVoiceProperty;
+
+typedef struct RawCommand {
+  INT16 Type;
+  INT16 SFXIndex;
+  LPWSTR TextToSpeech;
+  double WaitDuration;
+} RawCommand;
+
+[
+	object,
+	dual,
+	uuid(BB4AB49B-5DBE-4B2D-B3EC-1CE8D9EA243C)
+]
+interface IFoo : IDispatch {
+	[id(1), local] HRESULT Start();
+	[id(2), local] HRESULT Stop();
+	[id(3), local] HRESULT FadeIn();
+	[id(4), local] HRESULT FadeOut();
+	[id(5), local] HRESULT Push([in] RawCommand **pCommands, [in] INT32 commandsLength, [in] INT32 isForcePush);
+	[id(6), local] HRESULT GetVoiceCount([out] INT32 *pVoiceCount);
+	[id(7), local] HRESULT GetDefaultVoice([out] INT32 *pVoiceIndex);
+	[id(8), local] HRESULT GetVoiceProperty([in] INT32 voiceIndex, [out] RawVoiceProperty **ppVoiceProperty);
+	[id(9), local] HRESULT SetDefaultVoice([in] INT32 voiceIndex);
+	[id(10), local] HRESULT SetVoiceProperty([in] INT32 voiceIndex, [in] RawVoiceProperty *pVoiceProperty);
+	[id(11), local] HRESULT SetNotifyIdleStateHandler([in] NotifyIdleStateHandler notifyIdleStateHandler);
+}
+[
+	uuid(020E5D66-B659-4B59-A5FA-B3CFA022E807),
+	version(1.0),
+	helpstring("Type library for audio server")
+]
+library FooLib {
+	importlib("stdole2.tlb");
+	[
+		uuid(A7972B86-E3FD-44F0-9C09-E279C102FB11)
+	]
+	coclass Foo
+	{
+		[default] interface IFoo;
+	}
+}
