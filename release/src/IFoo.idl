@@ -8,8 +8,7 @@ typedef [v1_enum] enum {
 	AA_IUIAutomation = 3
 } AvailableAccessibilityAPI;
 
-// typedef INT64(__stdcall *UIEventHandler)(INT64 eventId, AvailableAccessibilityAPI eAvailableAccessibilityAPI, LPVOID pInterface);
-typedef INT64(__stdcall *UIEventHandler)(INT64 eventId, AvailableAccessibilityAPI eAPI);
+typedef [local] INT64(__stdcall *UIEventHandler)(INT64 eventId, AvailableAccessibilityAPI eAPI, LPVOID pInterface);
 
 [
 	object,
