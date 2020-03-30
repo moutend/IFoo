@@ -1,6 +1,15 @@
 import "oaidl.idl";
 import "ocidl.idl";
 
+typedef [v1_enum] enum {
+	AA_NONE = 0,
+	AA_IAccessible = 1,
+	AA_IAccessible2 = 2,
+	AA_IUIAutomation = 3
+} AvailableAccessibilityAPI ;
+
+typedef INT64(__stdcall *UIEventHandler)(INT64 eventId, AvailableAccessibilityAPI available, LPVOID pInterface);
+
 [
 	object,
 	dual,
@@ -9,7 +18,7 @@ import "ocidl.idl";
 interface IFoo : IDispatch {
 	[id(1), local] HRESULT Start();
 	[id(2), local] HRESULT Stop();
-	[id(3), local] HRESULT DoSomething();
+	[id(3), local] HRESULT SetUIEventHandler([in] UIEventHandler handler);
 }
 [
 	uuid(020E5D66-B659-4B59-A5FA-B3CFA022E807),
