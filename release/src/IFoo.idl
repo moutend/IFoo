@@ -18,7 +18,7 @@ typedef INT64(__stdcall *UIEventHandler)(INT64 eventId, AvailableAccessibilityAP
 interface IFoo : IDispatch {
 	[id(1), local] HRESULT Start();
 	[id(2), local] HRESULT Stop();
-	[id(3), local] HRESULT SetUIEventHandler([in] UIEventHandler handler);
+	// [id(3), local] HRESULT SetUIEventHandler([in] UIEventHandler handler);
 }
 [
 	uuid(020E5D66-B659-4B59-A5FA-B3CFA022E807),
